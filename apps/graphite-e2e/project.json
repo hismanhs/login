@@ -1,0 +1,10 @@
+{
+  "name": "@react-monorepo/graphite-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/graphite-e2e/src",
+  "implicitDependencies": ["@react-monorepo/graphite"],
+  "tags": [],
+  "// targets": "to see all targets run: nx show project @react-monorepo/graphite-e2e --web",
+  "targets": {}
+}

@@ -1,0 +1,90 @@
+{
+  "name": "analyticsApi",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/analyticsApi/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/rspack:rspack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "apps/analyticsApi/dist",
+        "index": "apps/analyticsApi/src/index.html",
+        "baseHref": "/",
+        "main": "apps/analyticsApi/src/main.ts",
+        "tsConfig": "apps/analyticsApi/tsconfig.app.json",
+        "assets": [
+          "apps/analyticsApi/src/favicon.ico",
+          "apps/analyticsApi/src/assets"
+        ],
+        "rspackConfig": "apps/analyticsApi/rspack.config.ts",
+        "styles": ["apps/analyticsApi/src/styles.tailwind"],
+        "scripts": [],
+        "configurations": {
+          "development": {
+            "mode": "development"
+          },
+          "production": {
+            "mode": "production",
+            "optimization": true,
+            "sourceMap": false,
+            "outputHashing": "all",
+            "namedChunks": false,
+            "extractLicenses": true,
+            "vendorChunk": false
+          }
+        },
+        "target": "web"
+      },
+      "configurations": {
+        "production": {
+          "rspackConfig": "apps/analyticsApi/rspack.config.prod.ts"
+        }
+      },
+      "dependsOn": ["^build", "typecheck"]
+    },
+    "serve": {
+      "executor": "@nx/rspack:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "analyticsApi:build",
+        "hmr": true,
+        "port": 4201
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "analyticsApi:build:development"
+        },
+        "production": {
+          "buildTarget": "analyticsApi:build:production",
+          "hmr": false
+        }
+      },
+      "dependsOn": ["typecheck"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{projectRoot}/test-output/jest/coverage"],
+      "options": {
+        "jestConfig": "apps/analyticsApi/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/rspack:module-federation-static-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "serveTarget": "analyticsApi:serve"
+      },
+      "configurations": {
+        "development": {
+          "serveTarget": "analyticsApi:serve:development"
+        },
+        "production": {
+          "serveTarget": "analyticsApi:serve:production"
+        }
+      }
+    }
+  }
+}

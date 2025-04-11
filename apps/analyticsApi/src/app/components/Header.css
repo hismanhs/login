@@ -1,0 +1,35 @@
+.header {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-title {
+    font-size: 1.25rem; /* Equivalent to text-xl */
+    font-weight: bold;
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* Equivalent to space-x-4 */
+  }
+  
+  .header-user {
+    color: #718096; /* Equivalent to text-gray-600 */
+  }
+  
+  .logout-button {
+    padding: 8px 16px; /* Equivalent to px-4 py-2 */
+    background-color: #f56565; /* Equivalent to bg-red-500 */
+    color: white;
+    border-radius: 8px; /* Equivalent to rounded-lg */
+    transition: background-color 0.2s ease-in-out; /* Equivalent to transition duration-200 */
+  }
+  
+  .logout-button:hover {
+    background-color: #e53e3e; /* Equivalent to hover:bg-red-600 */
+  }

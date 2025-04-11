@@ -1,0 +1,87 @@
+{
+  "name": "@react-monorepo/graphite",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/graphite/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/rspack:rspack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "apps/graphite/dist",
+        "index": "apps/graphite/src/index.html",
+        "baseHref": "/",
+        "main": "apps/graphite/src/main.ts",
+        "tsConfig": "apps/graphite/tsconfig.app.json",
+        "assets": ["apps/graphite/src/favicon.ico", "apps/graphite/src/assets"],
+        "rspackConfig": "apps/graphite/rspack.config.ts",
+        "styles": ["apps/graphite/src/styles.tailwind"],
+        "scripts": [],
+        "configurations": {
+          "development": {
+            "mode": "development"
+          },
+          "production": {
+            "mode": "production",
+            "optimization": true,
+            "sourceMap": false,
+            "outputHashing": "all",
+            "namedChunks": false,
+            "extractLicenses": true,
+            "vendorChunk": false
+          }
+        },
+        "target": "web"
+      },
+      "configurations": {
+        "production": {
+          "rspackConfig": "apps/graphite/rspack.config.prod.ts"
+        }
+      },
+      "dependsOn": ["^build", "typecheck"]
+    },
+    "serve": {
+      "executor": "@nx/rspack:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "@react-monorepo/graphite:build",
+        "hmr": true,
+        "port": 4200
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "@react-monorepo/graphite:build:development"
+        },
+        "production": {
+          "buildTarget": "@react-monorepo/graphite:build:production",
+          "hmr": false
+        }
+      },
+      "dependsOn": ["typecheck"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{projectRoot}/test-output/jest/coverage"],
+      "options": {
+        "jestConfig": "apps/graphite/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/rspack:module-federation-static-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "serveTarget": "@react-monorepo/graphite:serve"
+      },
+      "configurations": {
+        "development": {
+          "serveTarget": "@react-monorepo/graphite:serve:development"
+        },
+        "production": {
+          "serveTarget": "@react-monorepo/graphite:serve:production"
+        }
+      }
+    }
+  }
+}
