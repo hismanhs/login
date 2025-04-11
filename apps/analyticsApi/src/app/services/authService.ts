@@ -103,6 +103,8 @@ export const getProductListApi = async (): Promise<Product[]> => {
     );
     return response.data.products;
   } catch (error: any) {
-    throw new Error(error.response?.data?.message || 'Failed to fetch product list');
+    throw new Error(
+      error.response?.data?.message || 'Failed to fetch product list'
+    );
   }
 };
