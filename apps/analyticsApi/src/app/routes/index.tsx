@@ -3,10 +3,10 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../pages/login/Login';
 import Dashboard from '../pages/Dashboard/Dashboard';
 
-const ProtectedRoute: React.FC<{ isAuthenticated: boolean; children: React.ReactNode }> = ({
-  isAuthenticated,
-  children,
-}) => {
+const ProtectedRoute: React.FC<{
+  isAuthenticated: boolean;
+  children: React.ReactNode;
+}> = ({ isAuthenticated, children }) => {
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
   }
